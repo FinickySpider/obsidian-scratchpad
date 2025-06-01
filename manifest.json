@@ -1,0 +1,11 @@
+{
+	"id": "scratchpad",
+	"name": "Scratchpad",
+	"version": "0.1.0",
+	"minAppVersion": "0.15.0",
+	"description": "A simple plugin for taking quick notes and freehand drawings directly within Obsidian.",
+	"css": "styles.css",
+	"author": "KVH",
+	"authorUrl": "https://github.com/kvh03",
+	"isDesktopOnly": true
+}
