@@ -16,10 +16,6 @@ export default class ScratchpadPlugin extends Plugin {
         });
     }
 
-    onunload() {
-        this.app.workspace.getLeavesOfType(VIEW_TYPE_SCRATCHPAD).forEach((leaf) => leaf.detach());
-    }
-
     private async activateView() {
         const workspace = this.app.workspace;
         const existingLeaf = workspace.getLeavesOfType(VIEW_TYPE_SCRATCHPAD)[0];
