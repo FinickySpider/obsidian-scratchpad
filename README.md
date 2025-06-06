@@ -26,6 +26,8 @@
    - Adjust brush size
    - Clear the canvas
 
+![](assets/scratchpad.png)
+
 > [!NOTE]
 > - This is a temporary note — your content is stored in memory and will be lost when the app is closed.
 > - Scratchpad **does not support multiple notes**.
