@@ -10,8 +10,8 @@ export class ScratchpadView extends ItemView {
 	private drawing = false;
 	private lastX = 0;
 	private lastY = 0;
-	private brushColor = "#FFFFFF";
-	private brushSize = 2;
+	private brushColor: string;
+	private brushSize: number;
 
 	private canvasHistory: ImageData[] = [];
 	private canvasIndex = -1;
@@ -24,6 +24,10 @@ export class ScratchpadView extends ItemView {
 	constructor(leaf: WorkspaceLeaf) {
 		super(leaf);
 		this.canvas = document.createElement("canvas");
+
+		// Get themable values from CSS variables
+		this.brushColor = this.getBrushColorFromCSS();
+		this.brushSize = this.getBrushSizeFromCSS();
 	}
 
 	getViewType(): string {
@@ -59,6 +63,20 @@ export class ScratchpadView extends ItemView {
 	onResize(): void {
 		super.onResize();
 		this.resizeCanvas();
+	}
+
+	private getBrushColorFromCSS(): string {
+		return getComputedStyle(document.documentElement)
+			.getPropertyValue("--scratchpad-brush-color")
+			.trim() || "#FFFFFF";
+	}
+
+	private getBrushSizeFromCSS(): number {
+		const val = getComputedStyle(document.documentElement)
+			.getPropertyValue("--scratchpad-brush-size")
+			.trim();
+		const size = parseInt(val, 10);
+		return isNaN(size) ? 2 : size;
 	}
 
 	private setupTextarea() {
