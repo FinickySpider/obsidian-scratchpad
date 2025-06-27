@@ -1,11 +1,11 @@
 {
 	"id": "scratchpad",
 	"name": "Scratchpad",
-	"version": "0.1.1",
+	"version": "0.2.0",
 	"minAppVersion": "0.15.0",
 	"description": "Take temporary notes and draw freehand in a sidebar scratchpad.",
 	"css": "styles.css",
 	"author": "KVH",
 	"authorUrl": "https://github.com/kvh03",
-	"isDesktopOnly": true
+	"isDesktopOnly": false
 }
