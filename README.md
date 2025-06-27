@@ -6,7 +6,7 @@
 
 -  A text input area for quick notes
 -  A canvas for freehand drawing with customizable brush color and size
--  Content persists as long as the app is open
+-  Content can be saved to disk
 -  Lightweight and distraction-free
 
 ## Installation
@@ -25,11 +25,12 @@
    - Pick brush color
    - Adjust brush size
    - Clear the canvas
+   - Save the content
 
 ![](assets/scratchpad.png)
 
 > [!NOTE]
-> - This is a temporary note — your content is stored in memory and will be lost when the app is closed.
+> - This is a temporary note — your content is stored in memory and will be lost when the app is closed unless you manually save it to disk.
 > - Scratchpad **does not support multiple notes**.
 
 ## License
