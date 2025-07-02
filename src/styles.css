@@ -10,7 +10,6 @@
 	gap: 10px;
 	padding: 10px;
 	box-sizing: border-box;
-	background-color: var(--background-primary);
 }
 
 .scratchpad-textarea {
@@ -18,13 +17,9 @@
 	resize: none;
 	min-height: 0;
 	width: 100%;
-	font-family: var(--font-text);
 	font-size: 1em;
 	padding: 8px;
 	box-sizing: border-box;
-	color: var(--text-normal);
-	background-color: var(--background-primary);
-	border: 1px solid var(--background-modifier-border);
 	border-radius: 6px;
 	overflow: auto;
 	line-height: var(--line-height-normal);
@@ -36,7 +31,6 @@
 	min-height: 0;
 	border: 1px solid var(--background-modifier-border);
 	border-radius: 6px;
-	background-color: var(--background-secondary);
 	overflow: hidden;
 	cursor: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS1wZW4taWNvbiBsdWNpZGUtcGVuIj48cGF0aCBkPSJNMjEuMTc0IDYuODEyYTEgMSAwIDAgMC0zLjk4Ni0zLjk4N0wzLjg0MiAxNi4xNzRhMiAyIDAgMCAwLS41LjgzbC0xLjMyMSA0LjM1MmEuNS41IDAgMCAwIC42MjMuNjIybDQuMzUzLTEuMzJhMiAyIDAgMCAwIC44My0uNDk3eiIvPjwvc3ZnPg==') 0 21, auto;
 }
@@ -53,20 +47,4 @@
 
 .scratchpad-toolbar input[type="range"] {
 	width: 100px;
-	accent-color: var(--interactive-accent);
-}
-
-button {
-	cursor: pointer;
-	font-family: var(--font-interface);
-}
-
-.mobile-only {
-  display: none;
-}
-
-@container (min-width: 285px) {
-  .mobile-only {
-    display: inline-flex;
-  }
 }

@@ -1,15 +1,7 @@
-import { ItemView, Notice, WorkspaceLeaf, setIcon } from "obsidian";
+import { ItemView, Notice, WorkspaceLeaf, setIcon, Platform, Scope, debounce } from "obsidian";
 import ScratchpadPlugin from "./main";
 
 export const VIEW_TYPE_SCRATCHPAD = "scratchpad-view";
-
-function debounce<T extends (...args: any[]) => void>(func: T, wait: number): T {
-    let timeout: ReturnType<typeof setTimeout>;
-    return function (this: any, ...args: any[]) {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => func.apply(this, args), wait);
-    } as T;
-}
 
 export class ScratchpadView extends ItemView {
     private textarea!: HTMLTextAreaElement;
@@ -30,7 +22,8 @@ export class ScratchpadView extends ItemView {
     private isTyping = false;
 
     private plugin: ScratchpadPlugin;
-    private debouncedSaveCanvasSnapshot: () => void;
+    private debouncedSaveCanvasSnapshot: ReturnType<typeof debounce>;
+    private debouncedSaveTextSnapshot: ReturnType<typeof debounce>;
 
     constructor(leaf: WorkspaceLeaf, plugin: ScratchpadPlugin) {
         super(leaf);
@@ -41,7 +34,7 @@ export class ScratchpadView extends ItemView {
 
         this.debouncedSaveCanvasSnapshot = debounce(() => {
             this.saveCanvasSnapshotInternal();
-        }, 600);
+        }, 600, true);
     }
 
     getViewType(): string {
@@ -72,12 +65,10 @@ export class ScratchpadView extends ItemView {
         }
 
         this.registerDrawingEvents();
-        window.addEventListener("keydown", this.handleUndoRedo);
-    }
 
-    async onClose(): Promise<void> {
-        this.unregisterDrawingEvents();
-        window.removeEventListener("keydown", this.handleUndoRedo);
+        this.scope = new Scope(this.app.scope);
+        this.scope.register(null, "z", (evt) => this.handleUndoRedo(evt));
+        this.scope.register(null, "y", (evt) => this.handleUndoRedo(evt));
     }
 
     onResize(): void {
@@ -101,13 +92,17 @@ export class ScratchpadView extends ItemView {
             attr: { placeholder: "Quick notes here..." },
         });
 
-        const debouncedSaveTextSnapshot = debounce(() => {
-            if (this.isTyping) return;
-            this.isTyping = true;
-            this.saveTextSnapshot();
-            this.isTyping = false;
-        }, 600);
-        this.textarea.addEventListener("input", debouncedSaveTextSnapshot);
+        this.debouncedSaveTextSnapshot = debounce(
+            () => {
+                if (this.isTyping) return;
+                this.isTyping = true;
+                this.saveTextSnapshot();
+                this.isTyping = false;
+            },
+            600,
+            true
+        );
+        this.textarea.addEventListener("input", this.debouncedSaveTextSnapshot);
     }
 
     private setupActionButtons() {
@@ -175,13 +170,13 @@ export class ScratchpadView extends ItemView {
             this.brushSize = parseInt((e.target as HTMLInputElement).value, 10);
         });
 
-        const undoBtn = toolbar.createEl("button", { cls: "mobile-only" });
+        const undoBtn = toolbar.createEl("button");
         setIcon(undoBtn, 'undo');
-        undoBtn.addEventListener("click", ()=>this.undoCanvas());
+        undoBtn.addEventListener("click", () => this.undoCanvas());
 
-        const redoBtn = toolbar.createEl("button", { cls: "mobile-only" });
+        const redoBtn = toolbar.createEl("button");
         setIcon(redoBtn, 'redo');
-        redoBtn.addEventListener("click", ()=>this.redoCanvas());
+        redoBtn.addEventListener("click", () => this.redoCanvas());
 
         const clearCanvasBtn = toolbar.createEl("button");
         setIcon(clearCanvasBtn, 'eraser');
@@ -194,30 +189,24 @@ export class ScratchpadView extends ItemView {
             await this.plugin.saveScratchpadContent(this.textarea.value, "");
         });
 
-        toolbar.append(colorInput, sizeSlider, undoBtn, redoBtn, clearCanvasBtn);
+        toolbar.empty();
+        if (Platform.isAndroidApp || Platform.isIosApp)
+            toolbar.append(colorInput, sizeSlider, undoBtn, redoBtn, clearCanvasBtn);
+        else
+            toolbar.append(colorInput, sizeSlider, clearCanvasBtn);
+
         this.contentEl.appendChild(toolbar);
     }
 
     private registerDrawingEvents() {
-        this.canvas.addEventListener("mousedown", this.startDrawing);
-        this.canvas.addEventListener("mousemove", this.draw);
-        this.canvas.addEventListener("mouseup", this.stopDrawing);
-        this.canvas.addEventListener("mouseout", this.stopDrawing);
-        this.canvas.addEventListener("touchstart", this.startDrawing);
-        this.canvas.addEventListener("touchmove", this.draw);
-        this.canvas.addEventListener("touchend", this.stopDrawing);
-        this.canvas.addEventListener("touchcancel", this.stopDrawing);
-    }
-
-    private unregisterDrawingEvents() {
-        this.canvas.removeEventListener("mousedown", this.startDrawing);
-        this.canvas.removeEventListener("mousemove", this.draw);
-        this.canvas.removeEventListener("mouseup", this.stopDrawing);
-        this.canvas.removeEventListener("mouseout", this.stopDrawing);
-        this.canvas.removeEventListener("touchstart", this.startDrawing);
-        this.canvas.removeEventListener("touchmove", this.draw);
-        this.canvas.removeEventListener("touchend", this.stopDrawing);
-        this.canvas.removeEventListener("touchcancel", this.stopDrawing);
+        this.registerDomEvent(this.canvas, "mousedown", this.startDrawing);
+        this.registerDomEvent(this.canvas, "mousemove", this.draw);
+        this.registerDomEvent(this.canvas, "mouseup", this.stopDrawing);
+        this.registerDomEvent(this.canvas, "mouseout", this.stopDrawing);
+        this.registerDomEvent(this.canvas, "touchstart", this.startDrawing);
+        this.registerDomEvent(this.canvas, "touchmove", this.draw);
+        this.registerDomEvent(this.canvas, "touchend", this.stopDrawing);
+        this.registerDomEvent(this.canvas, "touchcancel", this.stopDrawing);
     }
 
     private startDrawing = (e: MouseEvent | TouchEvent) => {
