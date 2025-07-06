@@ -53,7 +53,8 @@ export class ScratchpadView extends ItemView {
         this.setupActionButtons();
         this.setupCanvas();
         this.setupToolbar();
-
+        this.scope = new Scope(this.app.scope);
+        
         await this.loadContentFromPlugin();
         this.resizeCanvas();
 
@@ -66,9 +67,9 @@ export class ScratchpadView extends ItemView {
 
         this.registerDrawingEvents();
 
-        this.scope = new Scope(this.app.scope);
-        this.scope.register(null, "z", (evt) => this.handleUndoRedo(evt));
-        this.scope.register(null, "y", (evt) => this.handleUndoRedo(evt));
+        this.scope.register(["Mod"], "z", (evt) => this.handleUndo(evt));
+        this.scope.register(["Mod", "Shift"], "z", (evt) => this.handleRedo(evt));
+        this.scope.register(["Mod"], "y", (evt) => this.handleRedo(evt));
     }
 
     onResize(): void {
@@ -361,30 +362,27 @@ export class ScratchpadView extends ItemView {
         this.textarea.value = this.textHistory[this.textIndex];
     }
 
-    private handleUndoRedo = (e: KeyboardEvent) => {
+    private handleUndo(evt: KeyboardEvent) {
+        evt.preventDefault();
         const active = document.activeElement;
-        const key = e.key.toLowerCase();
-        const isUndo = (e.ctrlKey || e.metaKey) && !e.shiftKey && key === "z";
-        const isRedo = (e.ctrlKey || e.metaKey) && (e.shiftKey && key === "z" || key === "y");
 
         if (active === this.textarea) {
-            if (isUndo) {
-                e.preventDefault();
-                this.undoText();
-            } else if (isRedo) {
-                e.preventDefault();
-                this.redoText();
-            }
+            this.undoText();
         } else if (active === this.canvas) {
-            if (isUndo) {
-                e.preventDefault();
-                this.undoCanvas();
-            } else if (isRedo) {
-                e.preventDefault();
-                this.redoCanvas();
-            }
+            this.undoCanvas();
         }
-    };
+    }
+
+    private handleRedo(evt: KeyboardEvent) {
+        evt.preventDefault();
+        const active = document.activeElement;
+
+        if (active === this.textarea) {
+            this.redoText();
+        } else if (active === this.canvas) {
+            this.redoCanvas();
+        }
+    }
 
     public async saveContentToPlugin(): Promise<void> {
         const textContent = this.textarea.value;
