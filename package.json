@@ -1,15 +1,15 @@
 {
-	"name": "scratchpad",
-	"version": "0.1.0",
-	"description": "A simple plugin for taking quick notes and freehand drawings directly within Obsidian.",
+	"name": "scratchpad-enhanced",
+	"version": "1.0.0",
+	"description": "Enhanced scratchpad plugin with stash drawer, word counts, settings, and improved UI.",
 	"main": "main.js",
 	"scripts": {
 		"dev": "node esbuild.config.mjs",
 		"build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
 		"version": "node version-bump.mjs && git add manifest.json versions.json"
 	},
-	"keywords": [],
-	"author": "",
+	"keywords": ["obsidian", "plugin", "scratchpad", "notes", "enhanced"],
+	"author": "FinickySpider",
 	"license": "MIT",
 	"devDependencies": {
 		"@types/node": "^16.11.6",

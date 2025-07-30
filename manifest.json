@@ -1,10 +1,10 @@
 {
-	"id": "scratchpad",
-	"name": "Scratchpad",
-	"version": "0.2.2",
+	"id": "scratchpad-enhanced",
+	"name": "Scratchpad Enhanced",
+	"version": "1.0.0",
 	"minAppVersion": "0.15.0",
-	"description": "Take temporary notes and draw freehand in a sidebar scratchpad.",
-	"author": "KVH",
-	"authorUrl": "https://github.com/kvh03",
+	"description": "Enhanced scratchpad with stash drawer, word counts, and improved UI.",
+	"author": "FinickySpider (Enhanced)",
+	"authorUrl": "https://github.com/FinickySpider/obsidian-scratchpad",
 	"isDesktopOnly": false
 }

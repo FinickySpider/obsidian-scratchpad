@@ -12,6 +12,9 @@ node_modules
 # They should be uploaded to GitHub releases instead.
 main.js
 
+# Build output directory
+dist/
+
 # Exclude sourcemaps
 *.map
 
@@ -20,3 +23,5 @@ data.json
 
 # Exclude macOS Finder (System Explorer) View States
 .DS_Store
+Stash-Feature-Plan.md
+assets/scratchpad.png
