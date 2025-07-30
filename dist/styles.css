@@ -1,0 +1,271 @@
+.scratchpad-container {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	padding: 0;
+	box-sizing: border-box;
+	position: relative;
+}
+
+.scratchpad-header {
+	padding: 10px;
+	border-bottom: 1px solid var(--background-modifier-border);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-shrink: 0;
+}
+
+.scratchpad-drawer-button {
+	background: none;
+	border: none;
+	cursor: pointer;
+	padding: 6px;
+	border-radius: 4px;
+	color: var(--text-muted);
+}
+
+.scratchpad-drawer-button:hover {
+	background-color: var(--background-modifier-hover);
+	color: var(--text-normal);
+}
+
+.scratchpad-header-controls {
+	display: flex;
+	gap: 4px;
+}
+
+.scratchpad-jump-button {
+	background: none;
+	border: none;
+	cursor: pointer;
+	padding: 4px;
+	border-radius: 4px;
+	color: var(--text-muted);
+	width: 24px;
+	height: 24px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.scratchpad-jump-button:hover {
+	background-color: var(--background-modifier-hover);
+	color: var(--text-normal);
+}
+
+.scratchpad-textarea {
+	flex: 1;
+	resize: none;
+	min-height: 0;
+	width: 100%;
+	font-size: 1em;
+	padding: 15px;
+	margin: 0;
+	box-sizing: border-box;
+	border: none;
+	background: var(--background-primary-alt);
+	color: var(--text-normal);
+	overflow: auto;
+	line-height: var(--line-height-normal);
+	font-family: var(--font-text);
+	outline: none;
+	position: relative;
+	z-index: 1;
+}
+
+.scratchpad-textarea:focus {
+	outline: none;
+	background: var(--background-primary-alt);
+}
+
+.scratchpad-footer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 8px 12px;
+	border-top: 1px solid var(--background-modifier-border);
+	flex-shrink: 0;
+	background: var(--background-primary);
+}
+
+.scratchpad-stats {
+	color: var(--text-muted);
+	font-size: 0.8em;
+	font-family: var(--font-monospace);
+}
+
+.scratchpad-buttons-container {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+}
+
+.scratchpad-buttons-container button {
+	background: none;
+	border: none;
+	cursor: pointer;
+	padding: 6px;
+	border-radius: 4px;
+	color: var(--text-muted);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 28px;
+	height: 28px;
+}
+
+.scratchpad-buttons-container button:hover {
+	background-color: var(--background-modifier-hover);
+	color: var(--text-normal);
+}
+
+/* Stash Drawer Styles */
+.scratchpad-stash-drawer {
+	position: absolute;
+	top: 0;
+	left: -320px;
+	width: 320px;
+	height: 100%;
+	background-color: var(--background-primary);
+	border-right: 1px solid var(--background-modifier-border);
+	display: flex;
+	flex-direction: column;
+	transition: left 0.3s ease;
+	z-index: 100;
+	box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.scratchpad-stash-drawer.open {
+	left: 0;
+}
+
+.stash-drawer-header {
+	padding: 16px;
+	border-bottom: 1px solid var(--background-modifier-border);
+	flex-shrink: 0;
+	background: var(--background-primary);
+}
+
+.stash-drawer-header-top {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 12px;
+}
+
+.stash-drawer-header-bottom {
+	display: flex;
+	justify-content: center;
+}
+
+.stash-drawer-title {
+	font-weight: 600;
+	font-size: 0.9em;
+	color: var(--text-normal);
+	letter-spacing: 0.05em;
+}
+
+.stash-drawer-close {
+	background: none;
+	border: none;
+	cursor: pointer;
+	padding: 4px;
+	border-radius: 4px;
+	color: var(--text-muted);
+}
+
+.stash-drawer-close:hover {
+	background-color: var(--background-modifier-hover);
+}
+
+.stash-clear-all-button {
+	background: none;
+	border: 1px solid var(--background-modifier-border);
+	cursor: pointer;
+	padding: 6px 12px;
+	border-radius: 4px;
+	color: var(--text-muted);
+	font-size: 0.8em;
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	transition: all 0.2s ease;
+}
+
+.stash-clear-all-button:hover {
+	background-color: var(--background-modifier-hover);
+	border-color: var(--background-modifier-border-hover);
+	color: var(--text-normal);
+}
+
+.stash-drawer-content {
+	flex: 1;
+	overflow-y: auto;
+	padding: 8px 16px;
+}
+
+.stash-empty-state {
+	text-align: center;
+	color: var(--text-muted);
+	padding: 40px 20px;
+	font-size: 0.9em;
+}
+
+.stash-card {
+	background-color: var(--background-secondary);
+	border: 1px solid var(--background-modifier-border);
+	border-radius: 6px;
+	padding: 12px;
+	margin-bottom: 8px;
+	cursor: pointer;
+	transition: all 0.2s ease;
+}
+
+.stash-card:hover {
+	background-color: var(--background-modifier-hover);
+	border-color: var(--background-modifier-border-hover);
+}
+
+.stash-preview {
+	color: var(--text-normal);
+	font-size: 0.9em;
+	line-height: 1.4;
+	margin-bottom: 8px;
+	word-wrap: break-word;
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	line-clamp: 3;
+	-webkit-box-orient: vertical;
+}
+
+.stash-meta {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.stash-date {
+	color: var(--text-muted);
+	font-size: 0.8em;
+}
+
+.stash-menu-button {
+	background: none;
+	border: none;
+	cursor: pointer;
+	padding: 4px;
+	border-radius: 4px;
+	color: var(--text-muted);
+	opacity: 0;
+	transition: opacity 0.2s ease;
+}
+
+.stash-card:hover .stash-menu-button {
+	opacity: 1;
+}
+
+.stash-menu-button:hover {
+	background-color: var(--background-modifier-border);
+}

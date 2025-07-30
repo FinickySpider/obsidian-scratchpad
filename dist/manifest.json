@@ -1,0 +1,10 @@
+{
+	"id": "scratchpad-enhanced",
+	"name": "Scratchpad Enhanced",
+	"version": "1.0.0",
+	"minAppVersion": "0.15.0",
+	"description": "Enhanced scratchpad with stash drawer, word counts, and improved UI.",
+	"author": "FinickySpider (Enhanced)",
+	"authorUrl": "https://github.com/FinickySpider/obsidian-scratchpad",
+	"isDesktopOnly": false
+}
