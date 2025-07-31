@@ -55,7 +55,7 @@ Since this is a customized version, it needs to be manually installed:
 
 ### Option 2: Clone or Build from Source
 1. Download or clone this repository
-2. Copy the `dist` folder contents to your `.obsidian/plugins/scratchpad-enhanced/` directory
+2. Copy the `dist` folder contents to your `.obsidian/plugins/Scratchpad - Enhanced/` directory
 3. Enable the plugin in Obsidian Settings → Community Plugins
 
 
