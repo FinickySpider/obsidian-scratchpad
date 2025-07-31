@@ -47,9 +47,17 @@ This version enhances the **text functionality** of the original plugin with:
 
 Since this is a customized version, it needs to be manually installed:
 
+### Option 1: Download from GitHub Releases
+1. Download the latest `.zip` file from the [Releases](https://github.com/FinickySpider/obsidian-scratchpad/releases) page
+2. Unzip the file
+3. Copy the contents into your `.obsidian/plugins/scratchpad-enhanced/` directory
+4. Enable the plugin in Obsidian Settings → Community Plugins
+
+### Option 2: Clone or Build from Source
 1. Download or clone this repository
 2. Copy the `dist` folder contents to your `.obsidian/plugins/scratchpad-enhanced/` directory
 3. Enable the plugin in Obsidian Settings → Community Plugins
+
 
 ## Usage
 
